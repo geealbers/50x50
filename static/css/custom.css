@@ -1,0 +1,9 @@
+.quire-page--50x50-grid .quire-page__header {
+  background-position: center;
+  margin-bottom: 2rem;
+}
+
+.quire-page--50x50-grid .subtitle {
+  display: block;
+  margin-top: .25rem;
+}

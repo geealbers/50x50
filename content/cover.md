@@ -1,5 +1,5 @@
 ---
-title: Quire Starter
+title: Quire
 weight: 1
 menu: false
 type: cover

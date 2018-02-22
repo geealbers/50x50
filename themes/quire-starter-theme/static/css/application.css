@@ -5063,8 +5063,9 @@ template {
   min-height: calc(100vh - 3.25rem);
 }
 
-.quire-page__header.hero.is-fullheight .title {
-  margin-top: 6rem;
+.quire-page__header.hero.is-fullheight .hero-body {
+  padding: 12rem 0;
+  margin-top: -3.25rem;
 }
 
 @media print {
@@ -5112,6 +5113,7 @@ template {
 
 .hero-body .quire-page__content .content p {
   margin-bottom: 1em;
+  text-indent: 0;
 }
 
 .quire-page__content .content p {
