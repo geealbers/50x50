@@ -10,4 +10,4 @@ image: fig-1-1-asawa-main.png
 >“My teachers at Black Mountain College were practicing artists…They taught me that there is no separation between studying, performing the daily chores of living, and creating one’s own work. Through them I came to understand the total commitment required to be an artist.”
 <br>
 
->>>>> -Ruth Asawa, *Completing the Circle*, 2002 ({{< q-cite "Cornell 2006" >}})
+>>>>> -Ruth Asawa, *Completing the Circle*, 2002 ({{< q-cite "Linhares 2002" >}})
