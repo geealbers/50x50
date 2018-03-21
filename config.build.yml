@@ -20,7 +20,7 @@
 # Use these settings for GH Pages
 #
 <<<<<<< HEAD
-baseURL: "https:// ahelton897.github.io/50x50"
+baseURL: "https://ahelton897.github.io/50x50"
 canonifyURLs: true
 
 # Use these settings for Netlify
