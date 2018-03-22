@@ -14,6 +14,7 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import $ from 'jquery'
 import 'smoothstate'
 import 'velocity-animate'
+import 'pagepiling.js'
 
 // Modules (feel free to define your own and import here)
 import Search from './search.js'
@@ -147,6 +148,15 @@ function deepZoomSetup() {
   }
 }
 
+function pageScrollSetup() {
+  $("#pp-nav").remove();
+  $("p:empty").remove();
+  $('#pagepiling').pagepiling({
+    sectionSelector: '.pp-slide',
+    verticalCentered: false,
+  });
+}
+
 /**
  * pageSetup
  * @description This function is called after each smoothState reload.
@@ -156,6 +166,7 @@ function pageSetup() {
   menuSetup()
   mapSetup()
   deepZoomSetup()
+  pageScrollSetup()
 }
 
 // Start
