@@ -7,7 +7,7 @@
 #
 # hugo --config=base.toml,child1.toml,child2.toml
 #
-# If you are using the Quire commands, this will happen automatically.
+#  If you are using the Quire commands, this will happen automatically.
 #
 # Currently these values are set to support deploying to GitHub pages.
 # If you are deploying to GH pages, set the baseURL in this file to
@@ -19,10 +19,11 @@
 
 # Use these settings for GH Pages
 #
-# baseURL: "https://gettypubs.github.io/quire-demo"
-# canonifyURLs: true
+
+baseURL: "https://ahelton897.github.io/50x50"
+canonifyURLs: true
 
 # Use these settings for Netlify
 #
-baseURL: "http://quire-demo.netlify.com"
-relativeURLs: true
+#baseURL: "http://quire-demo.netlify.com"
+#relativeURLs: true
