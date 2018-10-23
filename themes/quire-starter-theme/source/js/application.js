@@ -17,6 +17,7 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import $ from 'jquery'
 import 'smoothstate'
 import 'velocity-animate'
+import 'pagepiling.js'
 
 // Modules (feel free to define your own and import here)
 import Search from './search.js'

@@ -5,7 +5,7 @@ weight: 100
 type: section-head
 layout: grid
 slug: .
-image: fig-1-1-asawa-main.png
+image: fig-1-34-unknownportraitofcolescottwithodetojoybicubic.jpg
 ---
 
 > “My teachers at Black Mountain College were practicing artists…They taught me that there is no separation between studying, performing the daily chores of living, and creating one’s own work. Through them I came to understand the total commitment required to be an artist.”
