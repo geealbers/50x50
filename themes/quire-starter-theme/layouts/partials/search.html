@@ -1,7 +1,7 @@
 {{- if isset $.Site.Params "imagedir" }}
 {{ $.Scratch.Set "imageDir" $.Site.Params.imageDir }}
 {{ else }}
-{{ $.Scratch.Set "imagedir" "" }}
+{{ $.Scratch.Set "imageDir" "" }}
 {{ end -}}
 {{- $imgDir := $.Scratch.Get "imageDir" -}}
 
@@ -23,7 +23,7 @@
   </div>
 
   <div class="quire-search__inner" aria-label="search results">
-    <section class="hero is-dark">
+    <section class="hero">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">Search</h1>
@@ -46,8 +46,8 @@
   <template id="js-search-results-template">
     <li class="quire-search__inner__list-item">
       <a class="js-search-results-item" href="">
-        <h3 class="title is-4 js-search-results-item-title"></h3>
-        <h4 class="subtitle is-6 js-search-results-item-subtitle"></h4>
+        <h2 class="title js-search-results-item-title"></h2>
+        <p><span class="js-search-results-item-type"></span> | <span class="js-search-results-item-length"></span> words</p>
       </a>
     </li>
   </template>

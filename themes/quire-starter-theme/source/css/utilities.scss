@@ -1,5 +1,5 @@
 // =============================================================================
-// Mixins and utility classes
+// Utilities.scss
 // -----------------------------------------------------------------------------
 
 // scss-lint:disable NameFormat
@@ -12,19 +12,41 @@
 
   svg { fill: $frcolor; }
 
-  a {
+  a,
+  button,
+  .button {
     background-color: $bgcolor;
-    color: $frcolor;
+    color: $frcolor !important;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: darken($bgcolor, 5%);
       color: $frcolor;
     }
   }
+  a {
+    border-bottom-color: $frcolor !important;
+  }
+}
+
+// General Bulma Overrides
+// -----------------------------------------------------------------------------
+
+.hero-body,
+.section,
+.footer {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 // Utility Classes
 // -----------------------------------------------------------------------------
+
+sup,
+sub {
+  line-height: 0;
+}
+
 // Visually Hidden utility class
 .visually-hidden {
   clip: rect(1px, 1px, 1px, 1px);

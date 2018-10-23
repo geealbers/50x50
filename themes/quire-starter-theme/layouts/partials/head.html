@@ -5,8 +5,12 @@
 
   TODO: include a placeholder for custom fonts...
 */}}
+
+
+
 {{- $css := "css/application.css" | relURL -}}
 {{- $customCSS := "css/custom.css" | relURL -}}
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +22,16 @@
   {{ partial "metadata.html" . }}
   <link rel="stylesheet" href="{{ $css }}">
   <link rel="stylesheet" href="{{ $customCSS }}">
+
   <script>
    // Part of the HTML5 Template Polyfill for IE/Edge; required for client-side
    // search. More info: https://www.npmjs.com/package/template-polyfill
    document.createElement('template')
   </script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  {{ partial "analytics.html" . }}
+
 </head>
