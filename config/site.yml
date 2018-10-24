@@ -1,8 +1,8 @@
 # ==============================================================================
-# config.dev.yml
+#  web.yml
 # ------------------------------------------------------------------------------
 #
-# Development-specific values. Hugo supports multiple config files with the
+# Build-specific values. Hugo supports multiple config files with the
 # following syntax:
 #
 # hugo --config=base.toml,child1.toml,child2.toml
@@ -10,4 +10,3 @@
 # If you are using the Quire commands, this will happen automatically.
 
 baseURL: ""
-relativeURLs: true

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change this if you change the output folder in config.yml
-BUILD_DIR="public"
+BUILD_DIR="site"
 
 DIR=$(dirname "$0")
 cd $DIR/..
@@ -17,10 +17,9 @@ rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 
 echo "Generating site"
-# hugo --config=config.yml,config.build.yml
-quire build
+# hugo --config=config.yml,config/environments/github.yml
+quire site
 
 echo "Updating gh-pages branch"
-git add $BUILD_DIR && git commit -m "Automated deploy at $(date)."
+git add -f $BUILD_DIR && git commit -m "Automated deploy at $(date)."
 git subtree push --prefix $BUILD_DIR origin gh-pages
-
