@@ -16,7 +16,7 @@
 {{- if isset $.Site.Params "imagedir" }}
 {{ $.Scratch.Set "imageDir" $.Site.Params.imageDir }}
 {{ else }}
-{{ $.Scratch.Set "imagedir" "" }}
+{{ $.Scratch.Set "imageDir" "" }}
 {{ end -}}
 {{- $imgDir := $.Scratch.Get "imageDir" -}}
 
@@ -27,13 +27,13 @@
   <li class="quire-section-list__item">
     <h2 class="quire-section-list__item__title">
       <a href="{{ .Permalink }}">
-        {{ with .Params.id }}{{ . }}. {{ end }}
+        {{ with .Params.number }}{{ . }}. {{ end }}
         {{ .Title | markdownify }}{{ with .Params.subtitle }}: {{ . | markdownify }}{{ end }}
       </a>
     </h2>
 
     {{ if .Params.contributor }}
-      <p class="quire-section-list__item__contributor">{{ partial "contributor-list.html" (dict "range" .Params.contributor "contributorType" "all" "listType" "string") }}</p>
+      <p class="quire-section-list__item__contributor">{{ partial "contributor-list.html" (dict "range" .Params.contributor "contributorType" "all" "listType" "string" "Site" $.Site) }}</p>
     {{ end }}
 
     {{ with .Params.abstract }}

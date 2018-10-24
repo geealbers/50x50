@@ -1,12 +1,15 @@
 /**
  * @fileOverview
  * @name application.js
- * @description This file serves as the entry point for Weback, the JS library
+ * @description This file serves as the entry point for Webpack, the JS library
  * responsible for building all CSS and JS assets for the theme.
  */
 
 // Stylesheets
+// console.log(webpack)
+
 import '../css/application.scss'
+// import '../css/fonts.scss'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 
@@ -14,12 +17,12 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import $ from 'jquery'
 import 'smoothstate'
 import 'velocity-animate'
-import 'pagepiling.js'
 
 // Modules (feel free to define your own and import here)
 import Search from './search.js'
 import Map from './map.js'
 import DeepZoom from './deepzoom.js'
+import Navigation from './navigation.js'
 
 /**
  * toggleMenu
@@ -60,6 +63,58 @@ window.toggleSearch = () => {
 }
 
 /**
+ * sliderSetup
+ * @description Set up the simple image slider used on catalogue entry pages for
+ * objects with multiple figure images. See also slideImage function below.
+ */
+function sliderSetup() {
+  let slider = $('.quire-entry__image__group-container')
+  slider.each( function() {
+    let sliderImages = $(this).find('figure')
+    let firstImage = $( sliderImages.first() )
+    let lastImage = $( sliderImages.last() )
+    sliderImages.hide()
+    firstImage.addClass('current-image first-image')
+    firstImage.css('display','flex')
+    lastImage.addClass('last-image')
+  });
+}
+
+/**
+ * slideImage
+ * @description Slide to previous or next catalogue object image in a loop.
+ * Supports any number of figures per object, and any number of obejects
+ * per page.
+ */
+window.slideImage = (direction) => {
+  let slider = $( event.target ).closest('.quire-entry__image__group-container')
+  let firstImage = slider.children('.first-image' )
+  let lastImage = slider.children('.last-image' )
+  let currentImage = slider.children('.current-image' )
+  let nextImage = currentImage.next('figure')
+  let prevImage = currentImage.prev('figure')
+  currentImage.hide()
+  currentImage.removeClass('current-image')
+  if ( direction == "next" ) {
+    if ( currentImage.hasClass('last-image') ) {
+      firstImage.addClass('current-image')
+      firstImage.css('display','flex')
+    } else {
+      nextImage.addClass('current-image')
+      nextImage.css('display','flex')
+    }
+  } else if ( direction == "prev" ) {
+    if ( currentImage.hasClass('first-image') ) {
+      lastImage.addClass('current-image')
+      lastImage.css('display','flex')
+    } else {
+      prevImage.addClass('current-image')
+      prevImage.css('display','flex')
+    }
+  }
+}
+
+/**
  * search
  * @description makes a search query using Lunr
  */
@@ -85,10 +140,12 @@ window.search = () => {
       let clone = document.importNode(resultsTemplate.content, true)
       let item = clone.querySelector('.js-search-results-item')
       let title = clone.querySelector('.js-search-results-item-title')
-      let subtitle = clone.querySelector('.js-search-results-item-subtitle')
+      let type = clone.querySelector('.js-search-results-item-type')
+      let length = clone.querySelector('.js-search-results-item-length')
       item.href = result.url
       title.textContent = result.title
-      subtitle.textContent = result.type
+      type.textContent = result.type
+      length.textContent = result.length
       resultsContainer.appendChild(clone)
     })
   }
@@ -101,8 +158,8 @@ window.search = () => {
 function globalSetup() {
   let container = document.getElementById('container')
   container.classList.remove('no-js')
-  pageSetup()
   loadSearchData()
+  scrollToHash()
 }
 
 /**
@@ -148,13 +205,45 @@ function deepZoomSetup() {
   }
 }
 
-function pageScrollSetup() {
-  $("#pp-nav").remove();
-  $("p:empty").remove();
-  $('#pagepiling').pagepiling({
-    sectionSelector: '.pp-slide',
-    verticalCentered: false,
-  });
+let navigation
+function navigationSetup() {
+  if (!navigation) {
+    navigation = new Navigation()
+  }
+}
+
+function navigationTeardown() {
+  if (navigation) {
+    navigation.teardown()
+  }
+  navigation = undefined
+}
+
+/**
+ * scrollToHash
+ * @description Scroll the #main area after each smoothState reload.
+ * If a hash id is present, scroll to the location of that element,
+ * taking into account the height of the navbar.
+ */
+function scrollToHash() {
+  let $scroller = $("#main")
+  let $navbar = $(".quire-navbar")
+  let targetHash = window.location.hash;
+
+  if(targetHash) {
+    let targetHashEl = document.getElementById(targetHash.slice(1))
+    let $targetHashEl = $(targetHashEl)
+
+    if($targetHashEl.length){
+      let newPosition = $targetHashEl.offset().top
+      if ($navbar.length) {
+        newPosition -= $navbar.height()
+      }
+      $scroller.scrollTop(newPosition)
+    }
+  } else {
+    $scroller.scrollTop(0)
+  }
 }
 
 /**
@@ -166,7 +255,17 @@ function pageSetup() {
   menuSetup()
   mapSetup()
   deepZoomSetup()
-  pageScrollSetup()
+  sliderSetup()
+  navigationSetup()
+}
+
+/**
+ * pageTeardown
+ * @description This function is called before each smoothState reload.
+ * Remove any event listeners here.
+ */
+function pageTeardown() {
+  navigationTeardown()
 }
 
 // Start
@@ -177,7 +276,10 @@ globalSetup()
 
 // Run when document is ready
 $(document).ready(() => {
+  pageSetup()
+
   $('#container').smoothState({
+    scroll: false,
     onStart: {
       duration: 200,
       render($container) {
@@ -192,6 +294,15 @@ $(document).ready(() => {
         pageSetup()
       }
     },
-    onAfter($container, $newContent) {}
+    onAfter: function($container, $newContent) {
+      scrollToHash();
+
+      if (window.ga) {
+        window.ga('send', 'pageview', window.location.pathname);
+      }
+    },
+    onBefore($container, $newContent) {
+      pageTeardown();
+    }
   })
 })
